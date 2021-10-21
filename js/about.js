@@ -13,11 +13,19 @@ function parseTweets(runkeeper_tweets) {
 	var liveEvents = 0;
 	var miscellaneousEvents = 0;
 	var totalEvents = tweet_array.length;
+	var notUserWritted = 0;
+	var userWritten = 0;
 	for(var i=0;i<tweet_array.length;i++)
 	{
 		if (tweet_array[i].source === 'completed_event')
 		{
 			completedEvents++;
+			if (tweet_array[i].written)
+			{
+				userWritten++;
+			}else{
+				notUserWritted++;
+			}
 		} else if (tweet_array[i].source === 'live_event') {
 			liveEvents++;
 		} else if (tweet_array[i].source === 'achievement') {
@@ -38,21 +46,19 @@ function parseTweets(runkeeper_tweets) {
 	document.getElementById('numberTweets').innerText = tweet_array.length;
 	document.getElementById('firstDate').innerText = firstDate;
 	document.getElementById('lastDate').innerText = lastDate;
-	document.querySelector('.completedEvents').innerText = completedEvents;
-	document.querySelector('.completedEventsPct').innerText = completedEvents;
-	document.querySelector('.liveEvents').innerText = completedEvents;
-	document.querySelector('.liveEventsPct').innerText = completedEvents;
-	document.querySelector('.achievements').innerText = completedEvents;
-	document.querySelector('.achievementsPct').innerText = completedEvents;
-	document.querySelector('.miscellaneous').innerText = completedEvents;
-	document.querySelector('.miscellaneousPct').innerText = completedEvents;
 
-	// $(document).ready(function () {
-	// 	var objects = $(".main-class");
-	// 	for (var obj of objects) {
-	// 		console.log(obj);
-	// 	}
-	// });
+	$(document).ready(function () {
+		$('.completedEvents').text(completedEvents);
+		$('.completedEventsPct').text(((completedEvents/totalEvents)*100).toFixed(2)+"%");
+		$('.liveEvents').text(liveEvents);
+		$('.liveEventsPct').text(((liveEvents / totalEvents) * 100).toFixed(2) + "%");
+		$('.achievements').text(achievementEvents);
+		$('.achievementsPct').text(((achievementEvents / totalEvents) * 100).toFixed(2) + "%");
+		$('.miscellaneous').text(miscellaneousEvents);
+		$('.miscellaneousPct').text(((miscellaneousEvents / totalEvents) * 100).toFixed(2) + "%");
+		$('.written').text(userWritten);
+		$('.writtenPct').text(((userWritten / completedEvents) * 100).toFixed(2) + "%");
+	});
 
 }
 

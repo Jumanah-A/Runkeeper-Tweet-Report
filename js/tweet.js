@@ -24,14 +24,20 @@ class Tweet {
     //returns a boolean, whether the text includes any content written by the person tweeting.
     get written() {
         //TODO: identify whether the tweet is written
-        return false;
+        var current = this.text.split('https')[0];
+        if (current.endsWith("@Runkeeper. Check it out! ")) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
     get writtenText() {
         if (!this.written) {
             return "";
         }
         //TODO: parse the written text from the tweet
-        return "";
+        return this.text.split("http")[0];
     }
     get activityType() {
         if (this.source != 'completed_event') {
