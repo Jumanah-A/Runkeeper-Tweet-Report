@@ -36,7 +36,6 @@ function parseTweets(runkeeper_tweets) {
 	}
 
 
-
 	var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 	var lastDate = new Date(tweet_array[0].time).toLocaleString("en-US", options);
 	var firstDate = new Date(tweet_array[tweet_array.length-1].time).toLocaleString("en-US", options);

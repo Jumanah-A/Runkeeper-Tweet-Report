@@ -4,9 +4,19 @@ function parseTweets(runkeeper_tweets) {
 		window.alert('No tweets returned');
 		return;
 	}
-	
+
 	tweet_array = runkeeper_tweets.map(function(tweet) {
 		return new Tweet(tweet.text, tweet.created_at);
+	});
+
+	$(document).ready(function () {
+		$('#numberActivities').text();
+		$('#firstMost').text();
+		$('#secondMost').text();
+		$('#thirdMost').text();
+		$('#longestActivityType').text();
+		$('#shortestActivityType').text();
+		$('#weekdayOrWeekendLonger').text();
 	});
 
 	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.

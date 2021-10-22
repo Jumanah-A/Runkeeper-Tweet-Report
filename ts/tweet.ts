@@ -6,7 +6,6 @@ class Tweet {
         this.text = tweet_text;
 		this.time = new Date(tweet_time);//, "ddd MMM D HH:mm:ss Z YYYY"
 	}
-
 	//returns either 'live_event', 'achievement', 'completed_event', or 'miscellaneous'
     get source():string {
         //TODO: identify whether the source is a live event, an achievement, a completed event, or miscellaneous.
