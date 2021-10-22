@@ -19,6 +19,21 @@ function parseTweets(runkeeper_tweets) {
 	{
 		if (tweet_array[i].source === 'completed_event')
 		{
+			if (tweet_array[i].text.startsWith("Just completed a"))
+			{
+				var x = tweet_array[i].text.split("Just completed a")[1].split(" ");
+				var distance = x[2] === "km" ? parseFloat(x[1]) * 0.621371 : parseFloat(x[1]);
+				console.log("real: "+x[1]+ " converted "+distance);
+				// console.log(x[2])
+				// console.log(x[3])
+			}
+			else if (tweet_array[i].text.startsWith("Just posted a"))
+			{
+				console.log("posted")
+			} else if (tweet_array[i].text.startsWith("Completed a"))
+			{
+				console.log("hi")
+			}
 			completedEvents++;
 			if (tweet_array[i].written)
 			{

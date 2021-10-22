@@ -42,13 +42,38 @@ class Tweet {
     get activityType() {
         if (this.source != 'completed_event') {
             return "unknown";
+        }else{
+            if (this.text.startsWith("Just completed a")) {
+                var extractActivity = this.text.split("Just completed a")[1].split(" ");
+
+                // console.log(parseFloat(x[1]))
+                // console.log(x[1]);
+                // console.log(x[2])
+                return extractActivity[3];
+            } else if (this.text.startsWith("Just posted a")) {
+                console.log("posted")
+            } else if (this.text.startsWith("Completed a")) {
+
+            }
         }
-        //TODO: parse the activity type from the text of the tweet
         return "";
     }
     get distance() {
         if (this.source != 'completed_event') {
             return 0;
+        }else
+        {
+            if (tweet_array[i].text.startsWith("Just completed a")) {
+                var extractDistance = tweet_array[i].text.split("Just completed a")[1].split(" ");
+                var distance = extractDistance[2] === "km" ? parseFloat(extractDistance[1]) * 0.621371 : parseFloat(extractDistance[1]);
+                return distance;
+            }
+            else if (tweet_array[i].text.startsWith("Just posted a")) {
+                console.log("posted")
+            } else if (tweet_array[i].text.startsWith("Completed a")) {
+                console.log("hi")
+            }
+
         }
         //TODO: prase the distance from the text of the tweet
         return 0;
