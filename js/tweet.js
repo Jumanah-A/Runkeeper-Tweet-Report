@@ -6,6 +6,7 @@ class Tweet {
     }
     //returns either 'live_event', 'achievement', 'completed_event', or 'miscellaneous'
     get source() {
+        //TODO: identify whether the source is a live event, an achievement, a completed event, or miscellaneous.
         var current = this.text;
         if (current.startsWith("Just posted") || current.toLowerCase().includes("completed")) {
             return 'completed_event';
@@ -22,6 +23,7 @@ class Tweet {
     }
     //returns a boolean, whether the text includes any content written by the person tweeting.
     get written() {
+        //TODO: identify whether the tweet is written
         var current = this.text.split('https')[0];
         if (current.endsWith("@Runkeeper. Check it out! ")) {
             return false;
@@ -48,13 +50,17 @@ class Tweet {
                 extractActivity = this.text.split("Just posted a")[1].split(" ");
                 if (!isNaN(parseFloat(extractActivity[1]))) {
                     return extractActivity[3];
-                }else{return "";}
+                }else{
+                    //time based activities no need for parsing
+                    return ""}
             } else if (this.text.startsWith("Completed a")) {
                 extractActivity = this.text.split("Completed a")[1].split(" ");
                 return extractActivity[3];
             }
-        }
+            //else if the completed is not an activity
+            return "";
     }
+}
     get distance() {
         if (this.source != 'completed_event') {
             return 0;

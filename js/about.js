@@ -19,7 +19,6 @@ function parseTweets(runkeeper_tweets) {
 	{
 		if (tweet_array[i].source === 'completed_event')
 		{
-			console.log(tweet_array[i].distance)
 			completedEvents++;
 			if (tweet_array[i].written)
 			{
