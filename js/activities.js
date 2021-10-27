@@ -15,8 +15,6 @@ function parseTweets(runkeeper_tweets) {
 	var longestDistanceActivity;
 	var shortestDistanceActivity;
 	var shortestDistance = tweet_array.length;
-	var weekday = 0;
-	var weekend = 0;
 	var activitiesFreq= Object.keys(activities);
 	for(var i=0;i<tweet_array.length;i++)
 	{
@@ -29,10 +27,16 @@ function parseTweets(runkeeper_tweets) {
 			distance+="Dist";
 			var weekend = current.activityType;
 			weekend += "Weekend";
+			var weekday = current.activityType;
+			weekday += "Weekday";
 			freq[distance] ? freq[distance] += parseFloat(current.distance) : freq[distance] = parseFloat(current.distance);
 			if(current.time.getDay() === 6 || current.time.getDay()=== 7)
 			{
 				freq[weekend] ? freq[weekend]++ : freq[weekend] = 1;
+			}
+			else{
+				freq[weekday] ? freq[weekday]++ : freq[weekday] = 1;
+
 			}
 		}
 	}
@@ -68,16 +72,7 @@ function parseTweets(runkeeper_tweets) {
 			}
 		}
 	}
-	//
-	console.log("shortest distance and activity:" + shortestDistance+shortestDistanceActivity)
-	console.log("longest distance and activity:" + longestDistance + longestDistanceActivity)
-	console.log(activities);
-	console.log(freq[longestDistanceActivity+"Weekend"])
-	console.log(freq[longestDistanceActivity+"Weekend"])
-
-	var a = tweet_array[5].time.getDay();
-
-
+	var weekLonger = freq[longestDistanceActivity + "Weekday"] > freq[longestDistanceActivity + "Weekend"] ? "Weekdays":"Weekends";
 	$(document).ready(function () {
 		$('#numberActivities').text(activitiesFreq.length);
 		$('#firstMost').text(firstMost);
@@ -85,16 +80,8 @@ function parseTweets(runkeeper_tweets) {
 		$('#thirdMost').text(thirdMost);
 		$('#longestActivityType').text(longestDistanceActivity);
 		$('#shortestActivityType').text(shortestDistanceActivity);
+		$('#weekdayOrWeekendLonger').text(weekLonger);
 	});
-	// $(document).ready(function () {
-	// 	$('#numberActivities').text(activities.length);
-	// 	$('#firstMost').text();
-	// 	$('#secondMost').text();
-	// 	$('#thirdMost').text();
-	// 	$('#longestActivityType').text();
-	// 	$('#shortestActivityType').text();
-	// 	$('#weekdayOrWeekendLonger').text();
-	// });
 
 	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.
 
