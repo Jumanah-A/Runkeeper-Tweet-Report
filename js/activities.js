@@ -16,6 +16,7 @@ function parseTweets(runkeeper_tweets) {
 	var shortestDistanceActivity;
 	var shortestDistance = tweet_array.length;
 	var activitiesFreq= Object.keys(activities);
+
 	for(var i=0;i<tweet_array.length;i++)
 	{
 		var current = tweet_array[i];
@@ -83,17 +84,48 @@ function parseTweets(runkeeper_tweets) {
 		$('#weekdayOrWeekendLonger').text(weekLonger);
 	});
 
-	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.
+	var activitiesArr = [];
+	for (const key in activities)
+	{
+		var curr = {}
+		curr[key]= activities[key];
+		activitiesArr.push(curr)
+	}
 
+
+	//TODO: create a new array or manipulate tweet_array to create a graph of the number of tweets containing each type of activity.
+	console.log(JSON.stringify(activitiesArr));
+	// activity_vis_spec = {
+	//   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+	//   "description": "A graph of the number of Tweets containing each type of activity.",
+	//   "data": {
+	//     "values": activities
+	//   },
+
+	// 	"mark": "point",
+	// 	"encoding": {
+	// 		"x": {
+	// 			"field": "Time (Day)",
+	// 			"timeUnit": "day",
+	// 			"type": "quantitative"},
+	// 		"y": {
+	// 			"field": "Distance",
+	// 			"type": "quantitative"
+	// 		}
+	// 	}
+	//   //TODO: Add mark and encoding
+	// };
 	activity_vis_spec = {
-	  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-	  "description": "A graph of the number of Tweets containing each type of activity.",
-	  "data": {
-	    "values": tweet_array
-	  }
-	  //TODO: Add mark and encoding
-	};
-	// vegaEmbed('#activityVis', activity_vis_spec, {actions:false});
+		"data": {
+			"values": JSON.stringify(activities)
+		},
+		"mark": "point",
+		"encoding": {
+			"x": { "field": "Horsepower", "type": "quantitative" },
+			"y": { "field": "Miles_per_Gallon", "type": "quantitative" }
+		}
+	}
+	vegaEmbed('#activityVis', activity_vis_spec, {actions:false});
 
 	//TODO: create the visualizations which group the three most-tweeted activities by the day of the week.
 	//Use those visualizations to answer the questions about which activities tended to be longest and when.
